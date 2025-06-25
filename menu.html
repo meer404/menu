@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Café Menu</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f6f1;
+    }
+
+    header {
+      background-color: #6b4f4f;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+      gap: 10px;
+    }
+
+    .filters button {
+      background: #6b4f4f;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .filters button:hover {
+      background: #4a3636;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .menu-item {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .menu-item:hover {
+      transform: scale(1.03);
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .menu-item .info {
+      padding: 1rem;
+    }
+
+    .menu-item .info h3 {
+      margin: 0 0 0.5rem;
+    }
+
+    .menu-item .info p {
+      margin: 0;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Cozy Café Menu</h1>
+  </header>
+
+  <div class="filters">
+    <button onclick="filterMenu('all')">All</button>
+    <button onclick="filterMenu('coffee')">Coffee</button>
+    <button onclick="filterMenu('tea')">Tea</button>
+    <button onclick="filterMenu('dessert')">Desserts</button>
+  </div>
+
+  <div class="menu" id="menu">
+    <!-- Menu items will be injected here -->
+  </div>
+
+  <script>
+    const menuItems = [
+      { title: "Espresso", category: "coffee", img: "image/1.jpg", description: "Strong and bold shot of coffee." },
+      { title: "Latte", category: "coffee", img: "image/2.jpg", description: "Creamy milk with a shot of espresso." },
+      { title: "Green Tea", category: "tea", img: "image/3.jpg", description: "Fresh and soothing green tea." },
+      { title: "Chai", category: "tea", img: "image/4.jpg", description: "Spiced milk tea with Indian flavors." },
+      { title: "Cheesecake", category: "dessert", img: "image/5.jpg", description: "Creamy dessert with a crunchy base." },
+      { title: "Chocolate Muffin", category: "dessert", img: "image/6.jpg", description: "Rich and moist chocolate treat." },
+    ];
+
+    function renderMenu(items) {
+      const menu = document.getElementById('menu');
+      menu.innerHTML = '';
+      items.forEach(item => {
+        const menuItem = document.createElement('div');
+        menuItem.className = 'menu-item';
+        menuItem.innerHTML = `
+          <img src="${item.img}" alt="${item.title}">
+          <div class="info">
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+          </div>
+        `;
+        menu.appendChild(menuItem);
+      });
+    }
+
+    function filterMenu(category) {
+      if (category === 'all') {
+        renderMenu(menuItems);
+      } else {
+        const filtered = menuItems.filter(item => item.category === category);
+        renderMenu(filtered);
+      }
+    }
+
+    // Initial render
+    renderMenu(menuItems);
+  </script>
+
+</body>
+</html>
